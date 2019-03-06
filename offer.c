@@ -4,8 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#define TREE_COMPARE_TEST
-
+//#define TREE_COMPARE_TEST
 
 /* ****************************************** */
 
@@ -33,6 +32,44 @@ int stack_size()
 }
 
 /* ****************************************** */
+
+/* ****************************************** */
+
+#define QUEUE_NUM 204800
+struct tree * queue_array[QUEUE_NUM] = {0};
+int queue_num = 0;
+int queue_in = 0;
+int queue_out = 0;
+
+int queue_put(struct tree *t)
+{
+	if(queue_num == QUEUE_NUM)
+		return -1;
+	queue_num++;
+	queue_array[queue_in++] = t;
+	if(queue_in == QUEUE_NUM)
+		queue_in = 0;
+}
+
+struct tree * queue_get()
+{
+	struct tree *t;
+	if(queue_num == 0)
+		return NULL;
+	queue_num--;
+	t = queue_array[queue_out++];
+	if(queue_out == QUEUE_NUM)
+		queue_out = 0;
+	return t;
+}
+
+int queue_size()
+{
+	return queue_num;
+}
+
+/* ****************************************** */
+
 
 #ifdef TREE_COMPARE_TEST
 #define TEST_MAX 128
@@ -266,6 +303,29 @@ void tree_posttraveres_loop(struct tree *t)
 	}
 }
 
+void tree_leveltraveres(struct tree *t)
+{
+	struct tree *p = t;
+	if(!p)
+		return;
+	queue_put(p);
+	while(1)
+	{
+		p = queue_get();
+		if(!p)
+			break;
+
+		printf("%d ", p->value);
+		
+		if(p->left)
+			queue_put(p->left);
+		if(p->right)
+			queue_put(p->right);
+
+	}
+		
+}
+
 int array_ramdom(int *arr, int count)
 {
 	int i;
@@ -316,6 +376,25 @@ int main()
 		printf("%p ", p);
 	}
 	printf("\n");
+	return 0;
+#endif
+
+#ifdef QUEUE_TEST
+	struct tree *p = (struct tree *)1;
+	queue_put(p);
+	p = (struct tree *)2;
+	queue_put(p);
+	p = (struct tree *)3;
+	queue_put(p);
+
+	printf("queue:");
+	while(queue_size())
+	{
+		p = queue_get();
+		printf("%p ", p);
+	}
+	printf("\n");
+	return 0;
 #endif
 
 	int tree_value[] = {6, 7, 0, 8, 9, 4, 2, 3, 5, 1, 11,12,13,14,15,16,17,18,19,20};
@@ -331,18 +410,23 @@ int main()
 		tree_index = 0;
 #endif
 		t = tree_init(tree_value, sizeof(tree_value)/sizeof(int));
-		//printf("tree_traveres:");
+		printf("tree_traveres:");
 		tree_posttraveres_resursion(t);
 #ifndef TREE_COMPARE_TEST
 		printf("\n");
 #endif
 
-		//printf("tree_traveres:");
+		printf("tree_traveres:");
 		tree_posttraveres_loop(t);
 #ifndef TREE_COMPARE_TEST
 		printf("\n");
 #endif
 
+#ifndef TREE_COMPARE_TEST
+		printf("tree_level_traveres:");
+		tree_leveltraveres(t);
+		printf("\n");
+#endif
 
 #ifdef TREE_COMPARE_TEST
 		static int count = 0, count_err = 0;
