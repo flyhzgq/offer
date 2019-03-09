@@ -3,6 +3,8 @@
 
 void array_ramdom(int *arr, int count);
 void array_print(int *arr, int count);
+void array_copy(int *from, int *to, int count);
+
 
 #endif
 

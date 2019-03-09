@@ -3,7 +3,7 @@
 
 void sort_quick(int s[], int size);
 void sort_merge(int s[], int size);
-
+void sort_merge_loop(int s[], int size);
 
 #endif
 

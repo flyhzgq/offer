@@ -95,7 +95,7 @@ void test_tree(int *tree_value, int count)
 			printf("result:%d/%d\n", count_err, count);
 #endif
 		tree_deinit(t);
-		usleep(1000*000);
+		usleep(500*1000);
 	}
 
 }
@@ -107,7 +107,9 @@ void test_sort(int *tree_value, int count)
 		printf("test sort\n");
 		array_ramdom(tree_value, count);
 		array_print(tree_value, count);
-		sort_quick(tree_value, count);
+		//sort_quick(tree_value, count);
+		//sort_merge(tree_value, count);
+		sort_merge_loop(tree_value, count);
 		array_print(tree_value, count);
 		usleep(500*1000);
 	}
