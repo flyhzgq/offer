@@ -8,6 +8,7 @@
 #include "stack.h"
 #include "queue.h"
 #include "tree.h"
+#include "search.h"
 
 void test_stack()
 {
@@ -116,6 +117,23 @@ void test_sort(int *tree_value, int count)
 
 }
 
+void test_search(int *tree_value, int count)
+{
+	int index;
+	int key= 0;
+	sort_quick(tree_value, count);
+	array_print(tree_value, count);
+	while(1)
+	{
+		printf("test search %d\n", key);
+		index = search_binary(tree_value, count, key++);
+		printf("index:%d\n", index);
+		usleep(500*1000);
+	}
+
+}
+
+
 void useage()
 {
 	printf("choose num to test:\n");
@@ -123,6 +141,7 @@ void useage()
 	printf("2. test queue\n");
 	printf("3. test tree traveres\n");
 	printf("4. test sort\n");
+	printf("5. test search\n");
 }
 int main()
 {
@@ -145,6 +164,9 @@ int main()
 		break;
 	case '4':
 		test_sort(tree_value, sizeof(tree_value)/sizeof(int));
+		break;
+	case '5':
+		test_search(tree_value, sizeof(tree_value)/sizeof(int));
 		break;
 	default:
 		break;

@@ -2,13 +2,13 @@ CC=gcc
 LD=ld
 
 CFLAGS=-Wall
-LDFLAGS=-Wall -lm
+LDFLAGS=-Wall
 
 TARGET=offer
 
 all: $(TARGET)
 
-OBJS=offer.o array.o stack.o queue.o tree.o sort.o
+OBJS=offer.o array.o stack.o queue.o tree.o sort.o search.o
 
 $(TARGET): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)

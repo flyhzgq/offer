@@ -11,9 +11,9 @@ void array_ramdom(int *arr, int count)
 	if(arr == NULL)
 		return;
 	srand((unsigned int)time(NULL));
-	for (i = 0; i<count - 1; i++)
+	for (i = 0; i<count; i++)
 	{
-		int num = i + rand() % (count - 1 - i);
+		int num = rand() % (count);
 		int temp = arr[i];
 		arr[i] = arr[num];
 		arr[num] = temp;

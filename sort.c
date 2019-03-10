@@ -5,7 +5,6 @@
 #include <time.h>
 #include "sort.h"
 #include "array.h"
-#include "math.h"
 
 #define SORT_MERGE_MAX 2048
 int sort_merge_array[SORT_MERGE_MAX];
